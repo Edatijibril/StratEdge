@@ -21,11 +21,49 @@ if (burger && nav) {
 }
 
 // Scroll-triggered reveals with staggering.
+// Motion follows the device setting, but visitors can override it from the
+// footer switch (stored in localStorage).
+const root = document.documentElement;
 const revealItems = document.querySelectorAll('[data-reveal]');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+const toggle = document.querySelector('.motion-toggle');
+const toggleText = toggle && toggle.querySelector('.motion-text');
 
-if (!reduceMotion && 'IntersectionObserver' in window && revealItems.length) {
-  const observer = new IntersectionObserver((entries, io) => {
+let stored = null;
+try {
+  stored = localStorage.getItem('se-motion');
+} catch (err) {
+  stored = null;
+}
+let motionOn = stored ? stored === 'on' : !motionQuery.matches;
+let observer = null;
+
+function reflectMotion() {
+  root.classList.toggle('motion-off', !motionOn);
+  root.classList.toggle('motion-on', motionOn);
+  if (!toggle) return;
+  toggle.hidden = false;
+  toggle.setAttribute('aria-pressed', String(motionOn));
+  if (toggleText) toggleText.textContent = motionOn ? 'Motion on' : 'Motion off';
+}
+
+function showEverything() {
+  revealItems.forEach(item => item.classList.add('is-visible'));
+}
+
+function setupReveals() {
+  if (observer) {
+    observer.disconnect();
+    observer = null;
+  }
+  revealItems.forEach(item => item.classList.remove('is-visible'));
+
+  if (!motionOn || !('IntersectionObserver' in window)) {
+    showEverything();
+    return;
+  }
+
+  observer = new IntersectionObserver((entries, io) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
@@ -35,6 +73,29 @@ if (!reduceMotion && 'IntersectionObserver' in window && revealItems.length) {
   }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
 
   revealItems.forEach(item => observer.observe(item));
-} else {
-  revealItems.forEach(item => item.classList.add('is-visible'));
+}
+
+reflectMotion();
+setupReveals();
+
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    motionOn = !motionOn;
+    try {
+      localStorage.setItem('se-motion', motionOn ? 'on' : 'off');
+    } catch (err) {
+      /* storage can be blocked in private mode */
+    }
+    reflectMotion();
+    setupReveals();
+  });
+}
+
+if (motionQuery.addEventListener) {
+  motionQuery.addEventListener('change', e => {
+    if (stored) return; // an explicit choice wins over the device setting
+    motionOn = !e.matches;
+    reflectMotion();
+    setupReveals();
+  });
 }
