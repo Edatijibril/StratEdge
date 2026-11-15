@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}StratEdge Innovation Consulting | Technology. Intelligence. Compliance. Leadership.{% endblock %}</title>
+  <meta name="description" content="StratEdge Innovation Consulting Ltd (SICL): ICT solutions, AML/CFT/CPF financial intelligence, strategic consultancy and leadership development for government, regulators, financial institutions and private organisations in Nigeria and Africa.">
+  <meta name="theme-color" content="#001A3D">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+  <link rel="canonical" href="{{ c.website_url }}/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="StratEdge Innovation Consulting Ltd">
+  <meta property="og:description" content="Technology. Intelligence. Compliance. Leadership. Integrated advisory for institutions across Nigeria and Africa.">
+  <meta property="og:url" content="{{ c.website_url }}/">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "{{ c.name }}",
+    "alternateName": "SICL",
+    "description": "Integrated ICT solutions, AML/CFT/CPF advisory, strategic consultancy and leadership development.",
+    "url": "{{ c.website_url }}",
+    "telephone": "{{ c.phone }}",
+    "email": "{{ c.email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Paniel Abarka Plaza, Opposite Federal High Court, Chanchaga",
+      "addressLocality": "Minna",
+      "addressRegion": "Niger State",
+      "addressCountry": "NG"
+    },
+    "areaServed": "Nigeria",
+    "knowsAbout": ["ICT solutions", "AML/CFT/CPF compliance", "Financial intelligence", "Strategic consultancy", "Leadership development"]
+  }
+  </script>
+</head>
+<body>
+  {% include "_sprite.html" %}
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top-in">
+      <a class="brand" href="#top" aria-label="StratEdge Innovation Consulting home"><img src="{{ url_for('static', filename='img/logo-header-sm.png') }}" alt="StratEdge Innovation Consulting Ltd" width="480" height="125"></a>
+      <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+      <nav id="nav">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#why">Why us</a>
+        <a href="#team">Leadership</a>
+        <a href="#clients">Clients</a>
+        <a class="btn btn-gold" href="#contact">Book a consultation</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">{% block content %}{% endblock %}</main>
+  <footer class="foot">
+    <div class="wrap foot-top">
+      <div class="foot-brand">
+        <a class="foot-name" href="#top">Strat<b>Edge</b></a>
+        <p>{{ c.name }} ({{ c.short }})<br>Technology, intelligence, compliance and leadership for institutions across Nigeria and Africa.</p>
+        <p class="foot-tagline">Turning strategy into impact.</p>
+      </div>
+      <div>
+        <h4>Practices</h4>
+        <ul>{% for p in pillars %}<li><a href="#{{ p.key }}">{{ p.word }}</a></li>{% endfor %}</ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>{{ c.address }}<br>
+        <a href="tel:{{ c.phone|replace(' ','') }}">{{ c.phone }}</a><br>
+        <a href="mailto:{{ c.email }}">{{ c.email }}</a></p>
+      </div>
+    </div>
+    <div class="wrap foot-bottom">
+      <span>&copy; {{ c.year }} {{ c.name }}. All rights reserved.</span>
+      <span>RC {{ c.rc }}</span>
+      <span>Innovation &middot; Strategy &middot; Transformation &middot; Impact</span>
+    </div>
+  </footer>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

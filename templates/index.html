@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero" id="top">
+  <div class="wrap hero-in">
+    <div class="hero-copy" data-reveal>
+      <p class="eyebrow">StratEdge Innovation Consulting</p>
+      <h1>Turning strategy into impact.</h1>
+      <p class="hero-lede">A multidisciplinary technology, consultancy and professional development firm. We deliver integrated ICT solutions, financial intelligence, strategic advisory and leadership development to institutions across Nigeria and Africa.</p>
+      <div class="cta"><a class="btn btn-gold" href="#contact">Book a consultation</a><a class="btn btn-ghost" href="#services">Explore our services</a></div>
+      <p class="hero-meta">RC {{ c.rc }} <span>&middot;</span> {{ c.city }}, Nigeria</p>
+    </div>
+    <div class="practice-index">
+      <p class="index-label" data-reveal style="--d:1">Our four practices</p>
+      {% for p in pillars %}
+      <a class="practice" href="#{{ p.key }}" data-reveal style="--d:{{ loop.index0 + 2 }}">
+        <span class="practice-num">{{ "%02d"|format(loop.index) }}</span>
+        <span class="practice-body"><strong>{{ p.word }}</strong><small>{{ p.blurb }}</small></span>
+        <span class="practice-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="wrap hero-rail" data-reveal style="--d:6">
+    {% for k in c.kicker %}<span>{{ k }}</span>{% if not loop.last %}<i aria-hidden="true">&middot;</i>{% endif %}{% endfor %}
+  </div>
+</section>
+
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-copy" data-reveal>
+        <p class="eyebrow">Who we are</p>
+        <h2>A technology-driven advisory firm for institutional change.</h2>
+        <p class="lede">{{ c.name }} ({{ c.short }}) provides integrated ICT solutions, AML/CFT/CPF advisory, strategic consultancy and executive leadership development.</p>
+        <p>We bridge the gap between technology, institutional capacity, financial integrity and effective leadership &mdash; with practical, innovative and sustainable solutions that strengthen governance, improve regulatory compliance and support digital transformation.</p>
+        <p>We position ourselves as a strategic technology and institutional transformation company, not solely as an IT vendor or a training provider.</p>
+        <div class="vm">
+          <div><h3>Vision</h3><p>To become a leading African technology, intelligence and strategic advisory firm recognised for driving institutional transformation, financial integrity, innovation and leadership excellence.</p></div>
+          <div><h3>Mission</h3><p>To empower organisations through innovative technology solutions, specialised financial crime compliance services, strategic consultancy and transformative leadership development.</p></div>
+        </div>
+      </div>
+      <aside class="about-side" data-reveal style="--d:1">
+        <figure class="logo-frame">
+          <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="StratEdge Innovation Consulting Ltd logo" width="1600" height="800" loading="lazy">
+          <figcaption>{{ c.name }} &middot; RC {{ c.rc }}</figcaption>
+        </figure>
+        <div class="values">
+          <p class="values-label">Our core values</p>
+          <ul class="values-grid">
+            {% for name, meaning in core_values %}
+            <li><strong>{{ name }}</strong><small>{{ meaning }}</small></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </aside>
+    </div>
+    <div class="glance" data-reveal>
+      <p class="glance-label">At a glance</p>
+      <div class="glance-grid">
+        <div><span>Registered</span><strong>RC {{ c.rc }}</strong></div>
+        <div><span>Structure</span><strong>Four practices, one team</strong></div>
+        <div><span>Based in</span><strong>{{ c.city }}</strong></div>
+        <div><span>Approach</span><strong>Advice plus training</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec section-bone" id="services">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="eyebrow">What we do</p>
+      <h2>Four practices. One integrated team.</h2>
+      <p class="lede">Each practice stands alone, and they are strongest together.</p>
+    </header>
+    <div class="cards">
+      {% for p in pillars %}
+      <article class="card" id="{{ p.key }}" data-reveal style="--d:{{ loop.index0 }}">
+        <div class="card-top">
+          <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-{{ p.icon }}"></use></svg></span>
+          <span class="card-tag"><span class="card-index">{{ "%02d"|format(loop.index) }}</span> {{ p.word }}</span>
+        </div>
+        <h3>{{ p.title }}</h3>
+        <p class="card-blurb">{{ p.blurb }}</p>
+        <ul>{% for i in p["items"] %}<li>{{ i }}</li>{% endfor %}</ul>
+        <a class="text-link" href="#contact">Enquire about this practice <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="why">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="eyebrow">Why StratEdge</p>
+      <h2>Why organisations choose us.</h2>
+      <p class="lede">We combine innovation, strategic thinking, technology and professional expertise to deliver practical solutions that strengthen institutional capability and drive sustainable results.</p>
+    </header>
+    <div class="why-list">
+      {% for t, d in advantages %}
+      <div class="why-row" data-reveal style="--d:{{ loop.index0 % 4 }}">
+        <span class="why-num">{{ "%02d"|format(loop.index) }}</span>
+        <div><h3>{{ t }}</h3><p>{{ d }}</p></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec section-bone" id="team">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="eyebrow">Leadership</p>
+      <h2>Led by practitioners, not theorists.</h2>
+      <p class="lede">Our managing director brings more than 25 years of public-sector, data and capacity-development experience to every engagement.</p>
+    </header>
+    <div class="leader-grid">
+      <aside class="leader-card" data-reveal>
+        <div class="leader-mono" aria-hidden="true">{{ leader.initials }}</div>
+        <h3>{{ leader.name }}</h3>
+        <p class="leader-role">{{ leader.role }}</p>
+        <blockquote class="leader-quote">&ldquo;{{ leader.quote }}&rdquo;</blockquote>
+      </aside>
+      <div class="leader-body" data-reveal style="--d:1">
+        <div class="leader-bio">
+          <p>{{ leader.summary }}</p>
+          {% for p in leader.bio %}<p>{{ p }}</p>{% endfor %}
+        </div>
+        <h4 class="leader-sub">Core areas of professional leadership</h4>
+        <ul class="leader-focus">
+          {% for t, d in leader.focus %}<li><strong>{{ t }}</strong><span>{{ d }}</span></li>{% endfor %}
+        </ul>
+        <h4 class="leader-sub">Qualifications &amp; platforms</h4>
+        <ul class="leader-creds">{% for x in leader.credentials %}<li>{{ x }}</li>{% endfor %}</ul>
+        <p class="leader-tools">{{ leader.tools }}</p>
+      </div>
+    </div>
+    <div class="units" data-reveal>
+      <div class="units-head">
+        <p class="eyebrow">How we are organised</p>
+        <h3>Four business units, supported by a lean corporate services function.</h3>
+      </div>
+      <div class="unit-list">
+        {% for u in units %}
+        <div class="unit-row">
+          <span class="unit-icon" aria-hidden="true"><svg class="icon"><use href="#i-{{ u.icon }}"></use></svg></span>
+          <h4>{{ u.name }}</h4>
+          <p>{{ u.role }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="banner">
+  <div class="wrap banner-in">
+    <div data-reveal><p class="eyebrow">Next step</p><h2>Ready to strengthen your institution?</h2></div>
+    <a class="btn btn-gold" href="#contact" data-reveal style="--d:1">Talk to our team</a>
+  </div>
+</section>
+
+<section class="sec section-bone" id="clients">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="eyebrow">Who we serve</p>
+      <h2>Public and private organisations that need technology and compliance to work together.</h2>
+    </header>
+    <ul class="client-list">{% for x in clients %}<li data-reveal style="--d:{{ loop.index0 % 4 }}">{{ x }}</li>{% endfor %}</ul>
+  </div>
+</section>
+
+<section class="sec" id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-copy" data-reveal>
+      <p class="eyebrow">Contact</p>
+      <h2>Tell us what you want to change.</h2>
+      <p class="lede">Send a short note and we will reply to arrange a presentation or a call.</p>
+      <dl class="contact-details">
+        <div><dt>Office</dt><dd>{{ c.address }}</dd></div>
+        <div><dt>Contact</dt><dd>{{ c.contact_person }}<br><span class="muted">Managing Director / CEO</span></dd></div>
+        <div><dt>Phone</dt><dd><a href="tel:{{ c.phone|replace(' ','') }}">{{ c.phone }}</a></dd></div>
+        <div><dt>Email</dt><dd>{% for e in c.emails %}<a href="mailto:{{ e }}">{{ e }}</a>{% if not loop.last %}<br>{% endif %}{% endfor %}</dd></div>
+      </dl>
+    </div>
+    <form method="post" action="{{ url_for('contact') }}" class="form" data-reveal style="--d:1">
+      {% with msgs = get_flashed_messages(with_categories=true) %}{% for cat, m in msgs %}<p class="flash {{ cat }}" role="status">{{ m }}</p>{% endfor %}{% endwith %}
+      <div class="row2">
+        <label>Full name<input name="name" required autocomplete="name"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+      </div>
+      <div class="row2">
+        <label>Organisation<input name="organisation" autocomplete="organization"></label>
+        <label>Interested in
+          <select name="interest"><option>General enquiry</option>{% for p in pillars %}<option>{{ p.title }}</option>{% endfor %}</select></label>
+      </div>
+      <label>Message<textarea name="message" rows="5" required minlength="10"></textarea></label>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn-navy" type="submit">Send message</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
