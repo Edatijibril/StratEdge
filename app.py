@@ -150,7 +150,7 @@ LEADER = {
         "MEAL",
         "MPH (in progress)",
     ],
-    "tools": "DHIS2 · Power BI · STATA · SPSS · Excel · KoboCollect · ODK",
+    # "tools": "DHIS2 · Power BI · STATA · SPSS · Excel · KoboCollect · ODK",
     "quote": (
         "Our commitment is to transform ideas into practical solutions, leverage innovation to address "
         "institutional challenges, and empower organisations and people to achieve sustainable results."
